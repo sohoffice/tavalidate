@@ -1,12 +1,21 @@
 tavalidate, utilities to help you validate [Tavern](https://tavern.readthedocs.io/en/latest/) response.
 
+Installation
+------------
+
+Tavalidate can be installed through pip.
+
+```
+pip install tavalidate
+```
+
 XML
 ----
 
 Tavern has great built-in Json support, but things are difficult when it comes to XML.
 Use tavalidate.xmlv package to validate XML response.
 
-XML Validation example:
+XML validation example:
 
 ```
 response:
