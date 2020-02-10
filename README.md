@@ -21,7 +21,7 @@ XML validation example:
 response:
   body:
     $ext:
-      function: tavalidate.xmlv:validate
+      function: tavalidate.xmlv:assert_xml
       extra_kwargs:
         expected: |
           <foo attr="!anystr">

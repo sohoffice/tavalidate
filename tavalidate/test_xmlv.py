@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from tavalidate.xmlv.validate import assert_xml
+from tavalidate.xmlv import assert_xml
 
 
 class Test(TestCase):
@@ -13,6 +13,11 @@ class Test(TestCase):
                 <child></child>
             </test> 
         """)
+
+        # Different in whitespaces
+        assert_xml(resp, expected="""<test foo="bar"><child></child></test>""")
+        assert_xml(DummyRequest("""<test></test>"""), expected="""<test>
+        </test>""")
 
         # Expect extra child
         with self.assertRaises(AssertionError):

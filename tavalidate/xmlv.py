@@ -1,3 +1,4 @@
+import logging
 import xml.etree.ElementTree as ET
 
 
@@ -13,6 +14,7 @@ def assert_xml(resp, **kwargs):
     expected_xml = kwargs['expected']
     strict = kwargs.get('strict', False)
     source_xml = resp.text
+    logging.debug("Response body: {}".format(source_xml))
     source_et = ET.fromstring(source_xml)
     expected_et = ET.fromstring(expected_xml)
     assert source_et is not None, "Can not parse response body"
@@ -52,9 +54,13 @@ def _assert_node(source, expected, strict):
 def _assert_value(source: str, expected: str):
     if source is None and expected is None:
         return True
+    if expected is None and source is not None and not source.strip():
+        return True
     if expected is None:
         return False
     expected_striped = expected.strip()
+    if source is None and not expected_striped:
+        return True
     if expected_striped == "!anything":
         return True
     elif expected_striped == "!anyint":
