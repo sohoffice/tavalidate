@@ -51,3 +51,9 @@ You may use some (not all) of the tavern magic values to match data of your spec
 #### strict
 
 Use `strict: True` if you want to make sure there's no extra tag in the response.
+
+Logging
+-------
+
+Configure the logger `tavalidate` so you can see the response body in
+DEBUG level.

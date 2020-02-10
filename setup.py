@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
         name="tavalidate",
-        version="0.0.2",
+        version="0.0.3",
         author="Douglas Liu",
         author_email="douglas@sohoffice.com",
         description="utilities to help you validate Tavern response.",

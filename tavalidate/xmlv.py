@@ -1,5 +1,6 @@
-import logging
 import xml.etree.ElementTree as ET
+
+from tavalidate import logger
 
 
 def assert_xml(resp, **kwargs):
@@ -14,7 +15,7 @@ def assert_xml(resp, **kwargs):
     expected_xml = kwargs['expected']
     strict = kwargs.get('strict', False)
     source_xml = resp.text
-    logging.debug("Response body: {}".format(source_xml))
+    logger.debug("Response body: {}".format(source_xml))
     source_et = ET.fromstring(source_xml)
     expected_et = ET.fromstring(expected_xml)
     assert source_et is not None, "Can not parse response body"
@@ -23,7 +24,8 @@ def assert_xml(resp, **kwargs):
 
 
 def _assert_node(source, expected, strict):
-    assert source.tag == expected.tag
+    assert source.tag == expected.tag, \
+        "Tag {} is different from expected {}".format(source.tag, expected.tag)
     for attr in expected.attrib:
         assert attr in source.attrib, \
             "Attribute {} not found in {}".format(attr, source.tag)

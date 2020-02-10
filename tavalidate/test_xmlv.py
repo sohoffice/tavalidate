@@ -1,3 +1,4 @@
+import logging
 from unittest import TestCase
 
 from tavalidate.xmlv import assert_xml
