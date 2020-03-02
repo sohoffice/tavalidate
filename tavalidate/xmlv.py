@@ -1,9 +1,9 @@
 import xml.etree.ElementTree as ET
 
-from tavalidate import logger
+from tavalidate.log import logger
 
 
-def assert_xml(resp, **kwargs):
+def do_assert_xml(resp, **kwargs):
     """
     Assert the xml structure in response body is the same as the expected xml.
 
@@ -88,3 +88,6 @@ def _assert_value(source: str, expected: str):
     if source is None:
         return False
     return source.strip() == expected_striped
+
+
+assert_xml = do_assert_xml

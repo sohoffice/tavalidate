@@ -6,7 +6,7 @@ from tavalidate.xmlv import assert_xml
 
 class Test(TestCase):
     def test_assert_xml_root(self):
-        resp = DummyRequest("""<test foo="bar">
+        resp = DummyResponse("""<test foo="bar">
             <child></child>
         </test>""")
         assert_xml(resp, expected="""
@@ -15,9 +15,9 @@ class Test(TestCase):
             </test> 
         """)
 
-        # Different in whitespaces
+        # Different only in whitespaces
         assert_xml(resp, expected="""<test foo="bar"><child></child></test>""")
-        assert_xml(DummyRequest("""<test></test>"""), expected="""<test>
+        assert_xml(DummyResponse("""<test></test>"""), expected="""<test>
         </test>""")
 
         # Expect extra child
@@ -61,7 +61,7 @@ class Test(TestCase):
             """)
 
     def test_assert_xml_child(self):
-        resp = DummyRequest("""<test foo="bar">
+        resp = DummyResponse("""<test foo="bar">
             <child>text</child>
         </test>""")
         assert_xml(resp, expected="""
@@ -101,7 +101,7 @@ class Test(TestCase):
             <child>!anything</child>
         </test>""")
 
-        resp2 = DummyRequest("""<test int="1" float="1.1">
+        resp2 = DummyResponse("""<test int="1" float="1.1">
             <child>True</child>
         </test>""")
         assert_xml(resp2, expected="""
@@ -110,6 +110,6 @@ class Test(TestCase):
         </test>""")
 
 
-class DummyRequest(object):
+class DummyResponse(object):
     def __init__(self, text):
         self.text = text

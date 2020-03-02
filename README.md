@@ -9,7 +9,7 @@ Tavalidate can be installed through pip.
 pip install tavalidate
 ```
 
-XML
+XML Validate
 ----
 
 Tavern has great built-in Json support, but things are difficult when it comes to XML.
@@ -19,14 +19,14 @@ XML validation example:
 
 ```
 response:
-  body:
-    $ext:
-      function: tavalidate.xmlv:assert_xml
-      extra_kwargs:
-        expected: |
-          <foo attr="!anystr">
-            <bar attr2="baz">!anyint</bar>
-          </foo>
+  status_code: 200
+  verify_response_with:
+    function: tavalidate:assert_xml
+    extra_kwargs:
+      expected: |
+        <foo attr="!anystr">
+          <bar attr2="baz">!anyint</bar>
+        </foo>
 ```
 
 Simply put, pass the expected xml as an argument to the `tavalidate.xmlv.validate` function. The
@@ -52,8 +52,31 @@ You may use some (not all) of the tavern magic values to match data of your spec
 
 Use `strict: True` if you want to make sure there's no extra tag in the response.
 
+XML Save
+----
+
+Use tavalidate.xmlv package to save XML response.
+
+It allows you to use [XPath](https://en.wikipedia.org/wiki/XPath) to specify the value to save
+inside the xml document. If the XPath somehow selects multiple nodes, tavalidate will print a
+warning, but the first value will still be saved.
+
+XML save example:
+
+```
+response:
+  save:
+    $ext:
+      function: tavalidate:save_xml
+      extra_kwargs:
+        variables:
+          bar: '/foo/bar/text()'
+          at1: '/foo/@at1'
+```
+
+
 Logging
 -------
 
-Configure the logger `tavalidate` so you can see the response body in
+Configure the logger `tavalidate` so you can see the response body and other logs in
 DEBUG level.
